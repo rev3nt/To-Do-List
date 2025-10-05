@@ -1,34 +1,36 @@
 class ToDoList:
     def __init__(self):
-        self.todoList = {}
+        self.todoList = []
 
 
     def add_task(self, task):
-        self.todoList[task] = {'completed': False}
+        self.todoList.append({'name': task, 'completed': False})
 
 
     def complete_task(self, task_name):
-        if task_name in self.todoList:
-            self.todoList[task_name]['completed'] = True
+        for task in self.todoList:
+            if task['name'] == task_name and not task['completed']:
+                task['completed'] = True
 
-            return
+                return
 
         print("Таска нет в списке")
 
 
     def remove_task(self, task_name):
-        if task_name in self.todoList:
-            del self.todoList[task_name]
+        for task in self.todoList:
+            if task['name'] == task_name:
+                self.todoList.remove(task)
 
-            return
+                return
 
         print("Таска нет в списке")
 
 
     def list_tasks(self):
         if self.todoList:
-            for task, task_status in self.todoList.items():
-                print(f'{task} {"✅" if task_status["completed"] else "❌"}')
+            for task in self.todoList:
+                print(f'{task['name']} {"✅" if task["completed"] else "❌"}')
             print()
         else:
             print('Список пуст')
